@@ -2,6 +2,27 @@
 
 #include <UGVModule.h>
 
+using namespace System;
+using namespace System::Threading;
+using namespace System::Diagnostics;
+
+ref struct ThreadProperties
+{
+    ThreadStart^ ThreadStart_;
+    bool Critical;
+    String^ ThreadName;
+    uint8_t BitID;
+
+    ThreadProperties(ThreadStart^ start, bool critical, uint8_t bit_id, String^ threadname)
+    {
+        ThreadStart_ = start;
+        Critical = critical;
+        BitID = bit_id;
+        ThreadName = threadname;
+    }
+};
+
+
 ref class ThreadManagement : public UGVModule {
 public:
     // Create shared memory objects
@@ -21,4 +42,10 @@ public:
 
 private:
     // Add any additional data members or helper functions here
+    SM_ThreadManagement^ SM_TM_;
+    SM_Laser^ SM_LASER_;
+    SM_GPS^ SM_GPS_;
+    SM_VehicleControl^ SM_VEHICLE_CONTROL_;
+    array<Thread^>^ ThreadList;
+    array<ThreadProperties^>^ ThreadPropertiesList;
 };
