@@ -18,6 +18,13 @@ For clarification of inheritance requirements see diagram in the assignment spec
 //#define WEEDER_ADDRESS "192.168.1.200"
 #define DISPLAY_ADDRESS "127.0.0.1" // Display is always running locally (run the MATLAB code separately)
 
+#define Z_ID "5492097\n"
+
+constexpr int LASER_PORT = 23000;
+constexpr int GNSS_PORT = 24000;
+constexpr int VC_PORT = 25000;
+constexpr int DISPLAY_PORT = 28000;
+
 ref class NetworkedModule abstract : public UGVModule
 {
 	public:

@@ -22,7 +22,6 @@ ref struct ThreadProperties
     }
 };
 
-
 ref class ThreadManagement : public UGVModule {
 public:
     // Create shared memory objects
@@ -42,7 +41,6 @@ public:
 
 private:
     // Add any additional data members or helper functions here
-    SM_ThreadManagement^ SM_TM_;
     SM_Laser^ SM_LASER_;
     SM_GPS^ SM_GPS_;
     SM_VehicleControl^ SM_VEHICLE_CONTROL_;

@@ -21,11 +21,13 @@ using namespace System::Net;
 using namespace System::Text;
 using namespace System::Diagnostics;
 
+constexpr uint16_t CRASH_LIMIT = 1000;
+
 // Defines which processes are critical and not critical
 // Ordering of processes in the mask should be based on the order in the UnitFlags type below.
 // You should change this based on what processes are and are not critical
-constexpr uint8_t NONCRITICALMASK = 0xff;
-constexpr uint8_t CRITICALMASK =    0x00;
+constexpr uint8_t NONCRITICALMASK =     0b00000110;
+constexpr uint8_t CRITICALMASK =        0b01111001;
 
 constexpr uint8_t bit_ALL =             0b01111111;
 constexpr uint8_t bit_TM =              0b00000001;
