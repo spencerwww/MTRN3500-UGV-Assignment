@@ -9,14 +9,17 @@ using namespace System::Diagnostics;
 ref struct ThreadProperties
 {
     ThreadStart^ ThreadStart_;
-    bool Critical;
     String^ ThreadName;
     uint8_t BitID;
 
-    ThreadProperties(ThreadStart^ start, bool critical, uint8_t bit_id, String^ threadname)
+    property bool Critical
+    {
+        bool get() { return (BitID & CRITICALMASK) != 0; }
+    }
+
+    ThreadProperties(ThreadStart^ start, uint8_t bit_id, String^ threadname)
     {
         ThreadStart_ = start;
-        Critical = critical;
         BitID = bit_id;
         ThreadName = threadname;
     }

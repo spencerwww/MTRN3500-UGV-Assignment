@@ -59,7 +59,7 @@ void ThreadManagement::threadFunction()
 
 	ThreadPropertiesList = gcnew array<ThreadProperties^>
 	{
-		gcnew ThreadProperties(gcnew ThreadStart(gcnew Laser(SM_TM_, SM_LASER_), &Laser::threadFunction), true, bit_LASER, "Laser Thread")
+		gcnew ThreadProperties(gcnew ThreadStart(gcnew Laser(SM_TM_, SM_LASER_), &Laser::threadFunction), bit_LASER, "Laser Thread")
 	};
 	ThreadList = gcnew array<Thread^>(ThreadPropertiesList->Length);
 	SM_TM_->WatchList = gcnew array<Stopwatch^>(ThreadPropertiesList->Length);
