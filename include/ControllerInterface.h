@@ -19,7 +19,7 @@ rather than expecting an X-Box controller to be connected and used.
 // This defines all the inputs from the controller
 // It will be filled in for you by the GetState function
 // Note: if using keyboard input mode, only isConnected, rightThumbY, and rightThumbX are filled
-typedef value struct _controllerState {
+typedef struct _controllerState {
     // Overall state
     bool isConnected;
 
@@ -70,7 +70,7 @@ public:
     * (specified by the controller) as an integer in the range 1-4
     * @param input 0 for X-Box controller and 1 for keyboard
     */
-    ControllerInterface(DWORD playerNum, int input_type);
+    ControllerInterface(unsigned long playerNum, int input_type);
 
     /**
     * Gets the state of all inputs from the controller
@@ -100,6 +100,6 @@ private:
     controllerState GetControllerState();
 
 private:
-    DWORD controllerNum_;
+    unsigned long controllerNum_;
     int input_type_;
 };
