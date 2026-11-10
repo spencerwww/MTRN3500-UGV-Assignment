@@ -76,12 +76,12 @@ void Laser::threadFunction()
 		{
 			processSharedMemory();
 		}
-		Console::WriteLine("--------------Laser Data------------------");
-		for (int i = 0; i < STANDARD_LASER_LENGTH; i++) {
-			Console::Write("[" + SM_LASER_->x[i] + ", " + SM_LASER_->y[i]  + "] ");
-		}
-		Console::Write("\n");
-		Console::WriteLine("------------------------------------------");
+		//Console::WriteLine("--------------Laser Data------------------");
+		//for (int i = 0; i < STANDARD_LASER_LENGTH; i++) {
+		//	Console::Write("[" + SM_LASER_->x[i] + ", " + SM_LASER_->y[i]  + "] ");
+		//}
+		//Console::Write("\n");
+		//Console::WriteLine("------------------------------------------");
 		Thread::Sleep(20);
 	}
 
@@ -133,19 +133,11 @@ error_state Laser::communicate()
 	String^ command = "\x02sRN LMDscandata\x03";
 	array<unsigned char>^ SendData = System::Text::Encoding::ASCII->GetBytes(command);
 
-	try
-	{
-		Stream->Write(SendData, 0, SendData->Length);
-		Thread::Sleep(10);
+	Stream->Write(SendData, 0, SendData->Length);
+	Thread::Sleep(10);
 
-		Array::Clear(ReadData, 0, ReadData->Length);
-		Stream->Read(ReadData, 0, ReadData->Length);
-	}
-	catch (System::IO::IOException^ e)
-	{
-		Console::WriteLine("Laser: no response from LiDAR ({0})", e->Message);
-		return error_state::ERR_NO_DATA;
-	}
-
+	Array::Clear(ReadData, 0, ReadData->Length);
+	Stream->Read(ReadData, 0, ReadData->Length);
+	
 	return error_state::SUCCESS;
 }
