@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="VC.cpp" />
+    <ClCompile Include="Display.cpp" />
     <ClCompile Include="GNSS.cpp" />
     <ClCompile Include="LiDAR.cpp" />
     <ClCompile Include="Main.cpp" />

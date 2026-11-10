@@ -22,12 +22,20 @@ error_state Laser::processSharedMemory()
 	double Resolution = Convert::ToInt32(StringArray[24], 16) / 10000.0;
 	int NumberData = Convert::ToInt32(StringArray[25], 16);
 
-	for (int i = 0; i < NumberData; i++)
+	Monitor::Enter(SM_LASER_->lockObject);
+	try
 	{
-		double range = Convert::ToInt32(StringArray[26 + i], 16);
-		double angle = (StartAngle + i * Resolution) * Math::PI / 180.0;
-		SM_LASER_->x[i] = range * sin(angle);
-		SM_LASER_->y[i] = -range * cos(angle);
+		for (int i = 0; i < NumberData; i++)
+		{
+			double range = Convert::ToInt32(StringArray[26 + i], 16);
+			double angle = (StartAngle + i * Resolution) * Math::PI / 180.0;
+			SM_LASER_->x[i] = range * sin(angle);
+			SM_LASER_->y[i] = -range * cos(angle);
+		}
+	}
+	finally
+	{
+		Monitor::Exit(SM_LASER_->lockObject);
 	}
 
 	return error_state::SUCCESS;

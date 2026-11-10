@@ -33,4 +33,10 @@ public:
 private:
 	SM_Laser^ SM_LASER_;
 	Stopwatch^ STOPWATCH_;
+	Stopwatch^ RECONNECT_TIMER_;
+
+	array<double>^ xData_;
+	array<double>^ yData_;
+
+	void sendDisplayData(array<double>^ xData, array<double>^ yData, NetworkStream^ stream);
 };
