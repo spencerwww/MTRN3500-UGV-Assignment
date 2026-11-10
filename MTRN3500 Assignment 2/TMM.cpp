@@ -4,6 +4,7 @@
 #include "TMM.h"
 #include "LiDAR.h"
 #include "GNSS.h"
+#include "VC.h"
 
 error_state ThreadManagement::setupSharedMemory()
 {
@@ -65,7 +66,8 @@ void ThreadManagement::threadFunction()
 	{
 		gcnew ThreadProperties(gcnew ThreadStart(gcnew Laser(SM_TM_, SM_LASER_), &Laser::threadFunction), bit_LASER, "Laser Thread"),
 		gcnew ThreadProperties(gcnew ThreadStart(gcnew GPS(SM_TM_, SM_GPS_), &GPS::threadFunction), bit_GPS, "GPS Thread"),
-		gcnew ThreadProperties(gcnew ThreadStart(gcnew Controller(SM_TM_, SM_VEHICLE_CONTROL_), &Controller::threadFunction), bit_CONTROLLER, "Controller Thread")
+		gcnew ThreadProperties(gcnew ThreadStart(gcnew Controller(SM_TM_, SM_VEHICLE_CONTROL_), &Controller::threadFunction), bit_CONTROLLER, "Controller Thread"),
+		gcnew ThreadProperties(gcnew ThreadStart(gcnew VehicleControl(SM_TM_, SM_VEHICLE_CONTROL_), &VehicleControl::threadFunction), bit_VC, "Vehicle Control Thread")
 	};
 	ThreadList = gcnew array<Thread^>(ThreadPropertiesList->Length);
 	SM_TM_->WatchList = gcnew array<Stopwatch^>(ThreadPropertiesList->Length);

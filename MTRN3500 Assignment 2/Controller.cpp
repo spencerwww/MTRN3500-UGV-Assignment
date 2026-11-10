@@ -44,7 +44,11 @@ error_state Controller::processSharedMemory()
 		Console::WriteLine("Controller connected");
 	wasConnected_ = true;
 
-	if (state.back)
+	// Keyboard mode only fills isConnected and the right stick; every other field
+	// (buttons, triggers) is left uninitialised, so only read Back with a real controller
+	bool keyboardMode = (CONTROLLER_INPUT_TYPE == 1);
+
+	if (!keyboardMode && state.back)
 	{
 		Console::WriteLine("Controller: Back pressed, shutting down all modules");
 		writeVehicleControl(0.0, 0.0);
@@ -52,8 +56,11 @@ error_state Controller::processSharedMemory()
 		return error_state::SUCCESS;
 	}
 
-	double speed = (state.rightTrigger - state.leftTrigger) * MAX_SPEED;
-	double steering = state.rightThumbX * MAX_STEERING;
+	double speed = keyboardMode
+		? state.rightThumbY * MAX_SPEED
+		: (state.rightTrigger - state.leftTrigger) * MAX_SPEED;
+	// Stick/arrow right is +1, but the UGV treats positive steering as a left turn, so negate
+	double steering = -state.rightThumbX * MAX_STEERING;
 	writeVehicleControl(speed, steering);
 
 	return error_state::SUCCESS;

@@ -8,7 +8,7 @@ using namespace System::Threading;
 using namespace System::Diagnostics;
 
 // 0 = X-Box controller, 1 = keyboard
-constexpr int CONTROLLER_INPUT_TYPE = 0;
+constexpr int CONTROLLER_INPUT_TYPE = 1;
 constexpr DWORD CONTROLLER_PLAYER_NUM = 1;
 
 constexpr double MAX_SPEED = 1.0;

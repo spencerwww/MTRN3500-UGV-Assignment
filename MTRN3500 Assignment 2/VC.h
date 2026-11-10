@@ -33,4 +33,10 @@ public:
 private:
 	SM_VehicleControl^ SM_VEHICLE_CONTROL_;
 	Stopwatch^ STOPWATCH_;
+
+	double steering_;
+	double speed_;
+	bool wdog_;
+
+	error_state sendCommand(double steering, double speed);
 };
